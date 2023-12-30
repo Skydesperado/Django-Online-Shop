@@ -25,6 +25,7 @@ django-storages<=1.14.2
 django-timezone-field<=6.1.0
 filelock<=3.13.1
 ghasedakpack<=0.1.13
+gunicorn<=21.2.0
 hiredis<=2.3.2
 identify<=2.5.33
 idna<=3.6
