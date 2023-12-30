@@ -1,16 +1,15 @@
+import os
 from pathlib import Path
 
 import dj_database_url
-from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = config("DEBUG")
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS",
-                       cast=lambda v: [s.strip() for s in v.split(",")])
+ALLOWED_HOSTS = ["*"]
 
 LOCAL_APPS = [
     "shop.apps.ShopConfig",
@@ -67,28 +66,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {"default": dj_database_url.config(default=config("DATABASE_URL"))}
+DATABASES = {
+    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+}
 
 CACHES = {
     "default": {
-        "BACKEND": config("BACKEND"),
-        "LOCATION": config("LOCATION"),
+        "BACKEND": os.environ.get("BACKEND"),
+        "LOCATION": os.environ.get("LOCATION"),
     }
 }
 
-DEFAULT_FILE_STORAGE = config("DEFAULT_FILE_STORAGE")
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 
-AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL")
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-AWS_SERVICE_NAME = config("AWS_SERVICE_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_SERVICE_NAME = os.environ.get("AWS_SERVICE_NAME")
 AWS_S3_FILE_OVERWRITE = False
 AWS_LOCAL_STORAGE = f"{BASE_DIR}/local/storage/"
 
-CELERY_HOST_NAME = config("CELERY_HOST_NAME")
-CELERY_BROKER_URL = config("CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND")
+CELERY_HOST_NAME = os.environ.get("CELERY_HOST_NAME")
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
@@ -117,21 +118,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SESSION_ENGINE = config("SESSION_ENGINE")
+SESSION_ENGINE = os.environ.get("SESSION_ENGINE")
 
-DOMAIN = config("DOMAIN", default="127.0.0.1")
+DOMAIN = os.environ.get("DOMAIN", default="127.0.0.1")
 
-DJANGO_ADMIN_URL = config("DJANGO_ADMIN_URL")
+DJANGO_ADMIN_URL = os.environ.get("DJANGO_ADMIN_URL")
 
-BUCKET_URL = config("BUCKET_URL")
-BUCKET_DELETE_URL = config("BUCKET_DELETE_URL")
-BUCKET_DOWNLOAD_URL = config("BUCKET_DOWNLOAD_URL")
+BUCKET_URL = os.environ.get("BUCKET_URL")
+BUCKET_DELETE_URL = os.environ.get("BUCKET_DELETE_URL")
+BUCKET_DOWNLOAD_URL = os.environ.get("BUCKET_DOWNLOAD_URL")
 
-GHASEDAK_API_KEY = config("GHASEDAK_API_KEY")
+GHASEDAK_API_KEY = os.environ.get("GHASEDAK_API_KEY")
 
-SANDBOX = config("SANDBOX")
+SANDBOX = os.environ.get("SANDBOX")
 
-MERCHANT = config("MERCHANT")
+MERCHANT = os.environ.get("MERCHANT")
 
 CKEDITOR_CONFIGS = {
     "default": {
@@ -141,17 +142,17 @@ CKEDITOR_CONFIGS = {
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = config("TIME_ZONE")
+TIME_ZONE = os.environ.get("TIME_ZONE")
 
 USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = config("STATIC_URL")
+STATIC_URL = os.environ.get("STATIC_URL")
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = config("MEDIA_URL")
+MEDIA_URL = os.environ.get("MEDIA_URL")
 
 MEDIA_ROOT = BASE_DIR / "media"
 
