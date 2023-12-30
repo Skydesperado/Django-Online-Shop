@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_headers %}
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+    <style>
+        .card {
+            width: 13rem;
+            height: 30rem;
+            display: inline-block;
+            margin: 10px 10px 0 10px;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+        }
+    </style>
+{% endblock extra_headers %}
+
+{% block content %}
+    {% for category in categories %}
+        <div class="btn-group">
+            <a href="{{ category.get_absolute_url }}" class="btn btn-info">{{ category.name }}</a>
+            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                {% for subcategory in category.sub_categories.all %}
+                    <li><a class="dropdown-item" href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    <br>
+    <br>
+    {% for product in products %}
+        <div class="card" style="width: 18rem; display: inline-block">
+            <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"></a>
+            <div class="card-body">
+                <a style="text-decoration: none; color: green; display: block; text-align: center; margin-bottom: 5px;" href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
+                <a style="text-align: center; display: block; margin: 5px auto;" href="{{ product.get_absolute_url }}" class="btn btn-primary">Buy</a>
+            </div>
+        </div>
+    {% endfor %}
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'shop:shop-view' %}";
+        }, 120000);
+    </script>
+{% endblock content %}

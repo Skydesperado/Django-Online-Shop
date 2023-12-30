@@ -1,0 +1,33 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+ghasedakpack = "*"
+pillow = "*"
+django-storages = "*"
+boto3 = "*"
+celery = "*"
+pre-commit = "*"
+pytz = "*"
+django-celery-beat = "*"
+requests = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+redis = "*"
+hiredis = "*"
+django-ckeditor = "*"
+python-decouple = "*"
+pyopenssl = "*"
+ndg-httpsclient = "*"
+pyasn1 = "*"
+simplejson = "*"
+ujson = "*"
+dj-database-url = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11.1"

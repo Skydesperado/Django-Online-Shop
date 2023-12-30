@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ product.name }}</h2>
+    <small>{{ product.created_at }}</small><br>
+    <hr>
+    <img style="width: 300px" src="{{ product.image.url }}" alt="{{ product.name }}"><br><br>
+    <p>{{ product.description|safe }}</p>
+    <p>{{ product.price }}$</p>
+    <form action="{% url 'shop:cart-add-view' product.id product.slug %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add To Cart">
+    </form>
+    <hr>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'shop:product-view' product.slug %}";
+        }, 120000);
+    </script>
+{% endblock content %}

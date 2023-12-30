@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Checkout</h3>
+    <p>Total: {{ order.get_total_price }}</p>
+    <form action="{% url 'shop:discount-view' order.id %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Apply" class="btn btn-primary">
+    </form>
+    <br>
+    <a href="{% url 'zarinpal:payment-request-view' order.id %}" class="btn btn-primary">Pay</a>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'shop:order-detail-view' order.id %}";
+        }, 120000);
+    </script>
+{% endblock content %}
